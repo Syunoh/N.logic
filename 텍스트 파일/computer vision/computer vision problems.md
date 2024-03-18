@@ -68,5 +68,5 @@
 ### Contextual understanding of Computer Vision 
 
 - 이미지에서 개별 객체를 식별할 수는 있지만 객체 간의 관계를 이해하고 장면을 해석하는 것은 문제
-    - CSU, COS
-    - GNN, NLP 
+    1. CSU, COS
+    2. GNN, NLP 
