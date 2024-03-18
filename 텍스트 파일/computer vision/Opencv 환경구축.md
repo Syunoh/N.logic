@@ -66,8 +66,34 @@
 - 가상환경 툴을 설치
 
   $ echo -e "\n# virtualenv and virtualenvwrapper" >> ~/.profile
+  
   $ echo "export WORKON_HOME=$HOME/.virtualenvs" >> ~/.profile
+  
   $ echo "source /usr/local/bin/virtualenvwrapper.sh" >> ~/.profile
 
-- 
+- 가상환경 구축
+  
+  $ source ~/.profile
+  $ mkvirtualenv cv -p python2
+  $ source ~/.profile
+  $ workon cv
+  (cv) pi$raspberrypi:~ $
+  (cv) $ pip install numpy
+
+  (cv) $ cd ~/opencv-3.3.0/
+  (cv) $ mkdir build
+  (cv) $ cd build
+  (cv) $ cmake -D CMAKE_BUILD_TYPE=RELEASE \
+    -D CMAKE_INSTALL_PREFIX=/usr/local \
+    -D INSTALL_PYTHON_EXAMPLES=ON \
+    -D OPENCV_EXTRA_MODULES_PATH=~/opencv_contrib-3.3.0/modules \
+    -D BUILD_EXAMPLES=ON ..
+  (cv) $ make
+
+  $ sudo make install
+  $ sudo ldconfig
+
+  $ cd ~/.virtualenvs/cv/lib/python2.7/site-packages/
+  $ ln -s /usr/local/lib/python2.7/site-packages/cv2.so cv2.so
+  
 
