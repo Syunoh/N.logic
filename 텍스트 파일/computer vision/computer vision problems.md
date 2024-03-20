@@ -1,4 +1,3 @@
-# 조현진
 
 ## Computer Vision Problem
 <br/>
