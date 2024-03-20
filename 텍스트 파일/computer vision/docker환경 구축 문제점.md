@@ -3,3 +3,5 @@
 rpi- 나 arm- 같은 접두사를 붙혀 검색해 보면 다양한 대안을 찾아 볼 수 있을 것이다. 
 node.js 에서 npm install 부터 문제가 발생했는데, official 이미지의 alpine 버전을 이용함으로써 해결할 수 있었다.
 이렇듯이, 본인이 사용하는 Docker이미지가 지원한다면, Raspberry Pi를 이용해 개발 환경을 쾌적하게 할 수 는 있으나 Docker 이미지가 라즈베리파이를 지원하지 않을 수 있다는 점은 명심해야 한다.
+
+-  Node.js를 그냥 apt install로 깔아보니 제대로 동작을 안 함
