@@ -39,39 +39,39 @@
 
   **docker stop - 컨테이너를 안전하게 종료**
 
-  $ docker stop [container]
+    $ docker stop [container]
 
   **모든 컨테이너 종료**
 
-  $ docker stop ${docker ps -a -q)
+    $ docker stop ${docker ps -a -q)
 
   ### 도커 컨테이너 목록 확인
 
   **실행중인 컨테이너 상태 확인**
 
-  $ docker ps
+    $ docker ps
 
   **전체 확인 (stop 되어있는 컨테이너 포함)**
 
-  $ docker ps -a
+    $ docker ps -a
 
   **컨테이너 상세 정보 확인**
 
-  $ docker inspect [container]
+    $ docker inspect [container]
 
   ### 도커 컨테이너 삭제
 
   **컨테이너 삭제**
 
-  $ docker rm [container]
+    $ docker rm [container]
 
   **컨테이너 실행 종료 후 자동 삭제**
 
-  $ docker run --rm [container]
+    $ docker run --rm [container]
 
   **중지된 모든 컨테이너 삭제**
 
-  $ docker container prume
+    $ docker container prume
 
   
     
