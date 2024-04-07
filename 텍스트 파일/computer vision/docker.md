@@ -163,3 +163,22 @@
   ### 도커 볼륨
 
   - **도커가 제공하는 볼륨관리 기능을 통해서 볼륨을 생성하고 삭제하고 관리**를 할 수 있음.
+
+  - 이렇게 생성된 볼륨은 도커가 특정 호스트 경로에 데이터가 저장됨.
+
+  #### 도커 볼륨 구조
+
+  ![image](https://github.com/Syunoh/StoneBox/assets/100738448/da43d19b-9c0e-4a2d-a65d-014fdd844408)
+
+  **도커 볼륨 생성**
+
+     $ docker volume create --name [도커 볼륨 이름]
+
+   **도커 볼륨 목록 확인**
+    
+    $ docker volume ls
+
+  **도커 볼륨 정보 확인 - 마운트 경로등의 볼륨 정보를 확인 가능**
+
+    $ docker volume inspect [도커 볼륨 이름]
+  
