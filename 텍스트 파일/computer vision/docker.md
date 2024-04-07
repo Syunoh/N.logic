@@ -288,7 +288,7 @@
 
   ### Dockerfile로 이미지 빌드
 
-    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/34c00e0f-7e6f-4add-8bd2-14684c9ffd22)
+    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/23e8e361-ce3f-462b-b514-63c540ca917a)
 
   - From - 노드 JS 16버전의 이미지를 가져옴
   
