@@ -1,4 +1,5 @@
 ## 도커 컨테이너 
+
   ### 도커 컨테이너 생성 
   
     $docker create [image]
@@ -72,7 +73,8 @@
   **중지된 모든 컨테이너 삭제**
 
     $ docker container prume
-   
+
+   <br>
    <br>
    <br>
    
@@ -181,7 +183,8 @@
   **도커 볼륨 정보 확인 - 마운트 경로등의 볼륨 정보를 확인 가능**
 
     $ docker volume inspect [도커 볼륨 이름]
-   
+
+<br>   
 <br>
 <br>
          
