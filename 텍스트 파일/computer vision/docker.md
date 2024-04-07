@@ -306,11 +306,11 @@
 
   - 아래의 명령어로 이미지 생성
 
-      $ docker build --force-rm -t nodejs-server:1.0.0 .
+        $ docker build --force-rm -t nodejs-server:1.0.0 .
 
   - 다음으로 아래의 명령어를 입력해서 생성된 이미지로 컨테이너 실행
 
-      $ docker run -d -P --name my_nodejs_server nodejs-server:1.0.0
+        $ docker run -d -P --name my_nodejs_server nodejs-server:1.0.0
 
     
 
