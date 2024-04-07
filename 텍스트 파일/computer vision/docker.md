@@ -79,8 +79,53 @@
 ## 도커 볼룸
 
   
-![image](https://github.com/Syunoh/StoneBox/assets/100738448/0b1f703e-a8a6-40f0-8028-5b180a226f98)
+    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/0b1f703e-a8a6-40f0-8028-5b180a226f98)
 
 
+  - 위 이미지는 레이어 구조로 되어있는데, Dokcerfile 내에 작성되어있는 여러 명령어들이 순차적으로 레이어가 쌓이듯이 저장된다고 보면 됨
+
+    Layer 1: Base 우분투L레이어 설치
+    Layer 2: 우분투 운영체제에서 필요로 하는 패키지들을 설치 (apt-get 패키지 설치하는 것들)
+    Layer 3: 패키지 설치 (파이썬 패키지 설치하는 예시)
+    Layer 4: 소스코드를 복사를 한다면 복사할 내용이 Layer4에 저장 (소스코드 수정)
+    Layer 5: Entrypoint 업데이트
+
+  - 도커 컨테이너로 docker run 명령어로 이미지를 실행하면 컨테이너가 되는데, 여기서 두 가지 레이어를 가지게 됨
+    첫번째는 "이미지 계층", 두번째는 "컨테이너 계층"
+    이미지 계층에서 이미지는 항상 동일하고 Read Only로 사용하게 됨. 변경사항을 적용할 수 없음.
+    컨테이너 계층은 컨테이너 상에서 새로운 파일을 쓴다거나 할 때는 기본적으로 Container Layer에 파일을 쓰게 되는데, Read Write권한      이 있음.
+
+    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/5cbbac15-8977-4dbe-a746-9953559d226f)
+
+
+  ### 호슽 볼륨 공유하기
+
+  **호스트 운영체제의 디렉토리를 컨테이너 내에 마운트 시키는 작업**
+
+  아래 명령어를 입력해서 mysql 데이터베이스 컨테이너를 실행
+  
+    $ docker run -d --name wordpressdb_hostvolume \
+    -e MYSQL_ROOT_PASSWORD=password \
+    -e MYSQL_DATABASE=wordress \
+    -v /home/wordpress_db:/var/lib/mysql \
+    mysql:5.7
+
+  아래 명령어를 입력해서 워드프레스 웹 서버 컨테이너를 생성
+
+    $ docker run -d \
+    -e WORDPRESS_DB_PASSWORD=password \
+    --name wordpress_hostvolume \
+    --link wordpressdb_hostvolume:mysql \
+    -p 80 \
+    wordpress
+
+  워드프레스 컨테이너에 -p 옵션으로 컨테이너의 80포트를 외부에 노출했으므로 docker ps 명령어에서 확인한 wordpress_hostvolume컨테이 
+  너의 호스트 포트로 워드프레스 컨테이너에 접속
+
+  ### 볼륨 컨테이너
+
+  ![image](https://github.com/Syunoh/StoneBox/assets/100738448/3aae7cf4-2b6a-4ffd-b22c-85ad03cbefe4)
+
+  - 볼륨 컨테이너를 이용하는 방법은 볼륨을 특정 어플리케이션 컨테이너에서 마운트 시키는 것이 아니라, **볼륨 컨테이너에서 볼륨 마운트만     진행을 하고 아무것도 하지 않는 컨테이너를 만들어서 어플리케이션 컨테이너가 볼륨 컨테이너를 참조하게 해서 마치 볼륨 컨테이너같이 사    용**할 수 있음. 그러면 Data-only Container의 마운트 목록을 어플리케이션 컨테이너가 공유받을 수 있음.
   
     
