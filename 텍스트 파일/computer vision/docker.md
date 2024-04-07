@@ -98,7 +98,7 @@
     ![image](https://github.com/Syunoh/StoneBox/assets/100738448/5cbbac15-8977-4dbe-a746-9953559d226f)
 
 
-  ### 호슽 볼륨 공유하기
+  ### 호스트 볼륨 공유하기
 
   **호스트 운영체제의 디렉토리를 컨테이너 내에 마운트 시키는 작업**
 
@@ -126,6 +126,40 @@
 
   ![image](https://github.com/Syunoh/StoneBox/assets/100738448/3aae7cf4-2b6a-4ffd-b22c-85ad03cbefe4)
 
-  - 볼륨 컨테이너를 이용하는 방법은 볼륨을 특정 어플리케이션 컨테이너에서 마운트 시키는 것이 아니라, **볼륨 컨테이너에서 볼륨 마운트만     진행을 하고 아무것도 하지 않는 컨테이너를 만들어서 어플리케이션 컨테이너가 볼륨 컨테이너를 참조하게 해서 마치 볼륨 컨테이너같이 사    용**할 수 있음. 그러면 Data-only Container의 마운트 목록을 어플리케이션 컨테이너가 공유받을 수 있음.
+  - 볼륨 컨테이너를 이용하는 방법은 볼륨을 특정 어플리케이션 컨테이너에서 마운트 시키는 것이 아니라, **볼륨 컨테이너에서 볼륨 마운트만 진행을 하고 아무것도 하지 않는 컨테이너를 만들어서 어플리케이션 컨테이너가 볼륨 컨테이너를 참조하게 해서 마치 볼륨 컨테이너같이 사용**할 수 있음. 그러면 Data-only Container의 마운트 목록을 어플리케이션 컨테이너가 공유받을 수 있음.
+
+  먼저 호스트 볼륨을 공유하는 volume_override 라는 이름의 컨테이너를 생성
   
-    
+    $ docker run -d \
+    -it \
+    --name volume_override \
+    -v $(pwd)/html:/usr/share/nginx/html \
+    ubuntu:focal
+
+  아래 명령어를 입력하여 --volumes-from 옵션을 사용하여 volume_override 컨테이너에서 볼륨을 공유받는 컨테이너를 생성
+
+    $ docker run -d \
+    --name user_nginx1 \
+    --volumes-from volume_override \
+    -p 80:80 \
+    nginx
+
+    $ docker run -d \
+    --name user_nginx2 \
+    --volumes-from volume_overrdie \
+    -p 8080:80 \
+    ngnix
+
+  ![image](https://github.com/Syunoh/StoneBox/assets/100738448/54fa06f2-1cef-44a4-ac5a-d35a8bce5bb4)
+
+  **--volumes-from** 옵션을 적용한 컨테이너와 볼륨 컨테이너 사이의 관계
+  이러한 구조를 활용하여 호스트에서 볼륨만 공유하고 별도의 역할을 하지 않는 '볼륨 컨테이너'로 활용해서 컨테이너 활용 가능
+
+  docker exec 명령어로 user_nginx1 컨테이너에 접속해서 /usr/share/nginx/html에 마운트가 잘되어있는지 확인 가능
+
+    $ docker exec -it bfaf bash
+
+
+  ### 도커 볼륨
+
+  - **도커가 제공하는 볼륨관리 기능을 통해서 볼륨을 생성하고 삭제하고 관리**를 할 수 있음.
