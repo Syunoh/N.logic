@@ -1,4 +1,4 @@
-## 도커 컨테이너 
+![image](https://github.com/Syunoh/StoneBox/assets/100738448/e7833140-906f-422d-804a-561a50eff916)## 도커 컨테이너 
 
   ### 도커 컨테이너 생성 
   
@@ -252,3 +252,66 @@
     ![image](https://github.com/Syunoh/StoneBox/assets/100738448/170a4d84-bb8f-40e9-a64f-3cb14da30c7b)
 
   - docker images를 통해 컨테이너에서 삭제된 것을 확인 가능
+
+<br>
+<br>
+<br>
+<br>
+
+## Dokerfile 
+
+  ### 도커파일로 이미지 생성
+
+  ![image](https://github.com/Syunoh/StoneBox/assets/100738448/e2de437c-9775-4972-ae25-40237b1e2dcd)
+
+  - 어플리케이션을 컨테이너화하기 위한 장기적인 시점에서 보았을 때, 도커 파일을 작성하는 것은 이미지를 생성하는 방법을 기록하는 것 뿐만 아니라 이미지의 빌드, 베포 측면에서도 매우 유리 (이미지 생성을 자동화할 수 있고 쉽게 베포가 가능)
+
+  ### Dokerfile 명령어
+
+  1. FROM - 생성할 이미지의 베이스가 될 이미지를  결정하는 명령어. 반드시 한 번 이상 입력해야 하며 FROM 지시어를 시작으로 작성
+  
+  2. LABEL - 이미지의 메타데이터를 설정하는 명령어. (키값)
+
+  3. WORKDIR - 명령어를 실행할 디렉토리를 지정하는 명령어.  (cd 명령어와 동일)
+
+  4. EXPOSE - Dokerfile의 빌드로 생성된 이미지에서 노출할 포트를 지정하는 명령어. 해당 이미지를 사용하는 사용자에게 해당 포트를 사용한다고 문서화하는 목적
+
+  5. COPY - 현재 디렉토리 경로의 모든 파일과 디렉토리를 해당 디렉토리에 모두 복사하는 명령어
+
+  6. RUN - 이미지를 만들기 위해 컨테이너 내부에서 명령어를 실행 (apt update, apt-get install apache2 명령어를 지정해주면 아파치 웹 서버가 설치된 이미지가 생성)
+
+  7. ADD - 파일을 이미지에 추가
+
+  8. CMD - 해당 이미지로 컨테이너를 실행할 때 어떤 명령어를 수행할 것인지를 결정하는 명령어. Dockerfile에서 한 번만 사용 가능
+
+  9. ENTRYPOINT - 도커 컨테이너가 실행할 때 고정적으로 실행되는 스크립트 혹은 명령어
+
+  ### Dockerfile로 이미지 빌드
+
+    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/34c00e0f-7e6f-4add-8bd2-14684c9ffd22)
+
+  - From - 노드 JS 16버전의 이미지를 가져옴
+  
+  - WORKDIR - 명령어를 실행할 위치를 /app/ 디렉토리로 이동
+ 
+  - COPY - 호스트 운영체제의 현재 디렉토리 상에 있는 package로 시작해서 .json으로 끝나는 모든 파일을 복사해서 이미지상의 경로로 현재 디렉토리에다가 전부 복사
+ 
+  - RUN - npm install을 지정해 주었으므로 이미지 상에서 WORKDIR 명령어로 지정해준 현재위치인 /app/ 디렉토리에서 복사하고 패키지 설치
+
+  - EXPOSE - 8080 포트를 사용하겠다고 선언
+
+  - CMD - 쉘에서 'node server.js'명령어를 실행
+
+    <br>
+
+  - 아래의 명령어로 이미지 생성
+
+      $ docker build --force-rm -t nodejs-server:1.0.0 .
+
+  - 다음으로 아래의 명령어를 입력해서 생성된 이미지로 컨테이너 실행
+
+      $ docker run -d -P --name my_nodejs_server nodejs-server:1.0.0
+
+    
+
+  
