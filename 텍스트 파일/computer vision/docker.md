@@ -72,10 +72,10 @@
   **중지된 모든 컨테이너 삭제**
 
     $ docker container prume
-
-
-
-
+   
+   
+   
+   
 ## 도커 볼룸
 
   
@@ -181,8 +181,10 @@
   **도커 볼륨 정보 확인 - 마운트 경로등의 볼륨 정보를 확인 가능**
 
     $ docker volume inspect [도커 볼륨 이름]
+   
 
 
+         
 ## 도커 이미지
 
   ![image](https://github.com/Syunoh/StoneBox/assets/100738448/52841631-be5a-4706-9d45-9421d1c2e1a2)
