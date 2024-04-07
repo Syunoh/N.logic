@@ -287,8 +287,8 @@
   9. ENTRYPOINT - 도커 컨테이너가 실행할 때 고정적으로 실행되는 스크립트 혹은 명령어
 
   ### Dockerfile로 이미지 빌드
-
-    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/23e8e361-ce3f-462b-b514-63c540ca917a)
+  
+  ![화면 캡처 2024-04-07 191902](https://github.com/Syunoh/StoneBox/assets/100738448/91c76e1a-3e4d-42e1-9b75-61a81f5faee1)  
 
   - From - 노드 JS 16버전의 이미지를 가져옴
   
