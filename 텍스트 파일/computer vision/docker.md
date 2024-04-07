@@ -181,4 +181,69 @@
   **도커 볼륨 정보 확인 - 마운트 경로등의 볼륨 정보를 확인 가능**
 
     $ docker volume inspect [도커 볼륨 이름]
-  
+
+
+## 도커 이미지
+
+  ![image](https://github.com/Syunoh/StoneBox/assets/100738448/52841631-be5a-4706-9d45-9421d1c2e1a2)
+
+  - 도커 이미지는 Layer 구조로 이루어져 있음. Layer 구조를 사용하므로 기존 base layer는 변경할 필요없이 새로운 Layer를 추가만 하면 됨.
+
+  - ubuntu 이미지를 베이스로 nginx 이미지를 만들고 web app 이미지를 nginx 이미지를 베이스로 만들어 레이어를 구성
+    만약, 나중에 web app 이미지의 소스를 수정한다고 하면 web app source 레이어만 다운받으면 되기 때문에 효울적
+
+  ### 도커 이미지 생성
+
+    $ docker search [image name]
+
+  - 하지만, 컨테이너에 특정 개발 환경을 직접 구축한 뒤 사용자만의 이미지를 직접 생성하야 하므로 컨테이너에서 이미지를 만드는 법
+
+  - 먼저 우분투 focal 이라는 컨테이너를 생성
+    
+    $ docker run -it --name user_ubuntu ubuntu:focal
+
+  - 컨테이너 내부에 my_name이라는 파일 생성하고 저장해서 기존의 이미지에서 변경사항을 만듦.
+
+    $ echo user >> my_name
+
+    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/b0844058-2612-4333-8ed4-d03165fcf5c1)
+
+  - 그런 다음 컨테이너에서 도커 호스트로 나와서 docker commit으로 컨테이너 이미지 생성
+
+    $ docker commit [options] [container] [repository:tag]
+
+  - 아래의 명령어는 user_ubuntu 컨테이너를 user_ubuntu:first라는 이름의 이미지로 생성
+
+    $ docker commit \
+    -a "username" -m "my first commit" \
+    user_ubuntu \
+    user_ubuntu:first
+
+  - **-a 옵션**: 이미지의 작성자를 나타냄
+  - **-m 옵션**: 이미지 커밋에 포함될 커밋 메세지
+
+  - 저장소 이름을 입력하지 않아도 상관없지만 입력하지 않으면 자동으로 latest로 설정됨.
+
+  - docker images로 컨테이너에 이미지가 생성되었는지 확인
+
+  ![image](https://github.com/Syunoh/StoneBox/assets/100738448/2fadaee8-d755-4e85-a13e-8c046d644dd7)
+
+  - docker images insepct 명령어로 두 개의 이미지의 레이어들을 비교
+
+  ![image](https://github.com/Syunoh/StoneBox/assets/100738448/efcad6c9-ee08-4d16-a285-efc31bd37381)
+
+  - ubuntu:focal 이미지를 베이스로 만든 ubuntu:first 이미지의 레이어는 기존에 존재하던 focal 에서 해시값을 가진 이미지 레이어에 추가해서 가진 것을 확인 가능
+
+  ### 도커 이미지 삭제
+
+    $ docker rmi [repository name:tag]
+
+  - 만약, 이미지를 사용중인 컨테이너가 존재한다면 이미지를 삭제할 수 없음. (컨테이너 docker stop 명령어를 사용한 후 이미지 삭제)
+
+    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/4452a684-7d0d-45a1-abdb-4a8718e89d5e)
+
+  - first 이미지를 삭제하는 명령어
+
+    ![image](https://github.com/Syunoh/StoneBox/assets/100738448/170a4d84-bb8f-40e9-a64f-3cb14da30c7b)
+
+  - docker images를 통해 컨테이너에서 삭제된 것을 확인 가능
