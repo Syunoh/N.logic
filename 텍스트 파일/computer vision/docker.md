@@ -1,4 +1,4 @@
-![image](https://github.com/Syunoh/StoneBox/assets/100738448/e7833140-906f-422d-804a-561a50eff916)## 도커 컨테이너 
+## 도커 컨테이너 
 
   ### 도커 컨테이너 생성 
   
